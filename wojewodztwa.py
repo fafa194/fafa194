@@ -1,11 +1,11 @@
-rmf = {"kujawsko-pomorskie","dolnośląskie", "lubuskie", "łódzkie","mazowieckie","podlaskie","pomorskie","śląskie","świętokrzyskie","warmińsko-mazurskie","wielkopolskie","zachodniopomorskie"}
-zet = {"kujawsko-pomorskie","dolnośląskie", "lubelskie", "lubuskie", "łódzkie","podkarpackie","śląskie","świętokrzyskie","warmińsko-mazurskie","wielkopolskie","zachodniopomorskie"}
+rmf = {"kujawsko-pomorskie","dolnośląskie", "lubuskie", "łódzkie","mazowieckie","podlaskie","pomorskie","śląskie","świętokrzyskie","warmińsko-mazurskie","wielkopolskie"}
+zet = {"kujawsko-pomorskie","dolnośląskie", "lubelskie", "lubuskie", "łódzkie","podkarpackie","śląskie","zachodniopomorskie"}
 eska = {"lubelskie", "lubuskie","mazowieckie","opolskie","podkarpackie","podlaskie","świętokrzyskie","warmińsko-mazurskie"}
-vox = {"lubelskie", "lubuskie", "łódzkie","małopolskie","mazowieckie","opolskie","pomorskie","śląskie","świętokrzyskie",}
-disco = {"kujawsko-pomorskie","dolnośląskie", "lubelskie", "lubuskie", "łódzkie","małopolskie","mazowieckie","opolskie","podkarpackie"}
+vox = {"lubelskie", "lubuskie", "łódzkie","małopolskie","mazowieckie","opolskie","pomorskie","świętokrzyskie",}
+disco = {"kujawsko-pomorskie","dolnośląskie", "lubelskie", "lubuskie", "łódzkie","małopolskie"}
 wnet = {"kujawsko-pomorskie","dolnośląskie","mazowieckie","opolskie","podkarpackie","podlaskie","świętokrzyskie"}
-pollo = {"kujawsko-pomorskie","dolnośląskie", "lubelskie", "lubuskie", "łódzkie","małopolskie","mazowieckie","opolskie","warmińsko-mazurskie","wielkopolskie","zachodniopomorskie"}
-regionalne = {"opolskie","podkarpackie","podlaskie","pomorskie","śląskie","świętokrzyskie","warmińsko-mazurskie","wielkopolskie","zachodniopomorskie"}
+pollo = {"kujawsko-pomorskie","dolnośląskie", "lubelskie", "lubuskie", "łódzkie","małopolskie","mazowieckie","opolskie","warmińsko-mazurskie","wielkopolskie"}
+regionalne = {"opolskie","podkarpackie","podlaskie","pomorskie","śląskie","świętokrzyskie","warmińsko-mazurskie","wielkopolskie"}
 zlote_przeboje = {"podkarpackie","podlaskie","pomorskie","śląskie","świętokrzyskie"}
 
 radio_array_list = [rmf,zet,eska,vox,disco,wnet,pollo,regionalne]
@@ -17,13 +17,12 @@ j = 0
 # Sprawdzamy jakie jest pokrycie dla kazdego radia
 for i, each_radio in enumerate(radio_array_list):
     each_radio_len = len(each_radio) # Zasięg zmierzony w liczbie
-    print(radio_array_list_strings[i], each_radio_len)
+    print(radio_array_list_strings[i], "zasięg:", each_radio_len)
     # Kazdy zasięg porównuję z każdym
     for j in range(len(radio_array_list)):
         radio_minus_radio = each_radio - radio_array_list[j] # Które zasięgi nie pokrywają się
         radio_intersection = each_radio & radio_array_list[j] # Które zasięgi się pokrywają
-        if len(radio_minus_radio) == 0:
-            print("OK")
-        else:
-            print(radio_array_list_strings[j], "nie pokrywa się z", radio_array_list_strings[i], "w obszarach", radio_minus_radio)
+        if len(radio_intersection) > 0:
+            total_range = len(radio_intersection | each_radio | radio_array_list[j])
+            print(radio_array_list_strings[i], "i", radio_array_list_strings[j], "o łącznym zasięgu radiowym:", total_range)
     print()
